@@ -1,0 +1,12 @@
+{
+  "title": "Bookmark Toolbar Toggler",
+  "name": "bookmark-toolbar-toggler",
+  "version": "0.0.1",
+  "description": "Simply toggles the bookmark toolbar on key short cut",
+  "main": "index.js",
+  "author": "dev@lski.co.uk",
+  "engines": {
+    "firefox": ">=38.0a1"
+  },
+  "license": "MIT"
+}
