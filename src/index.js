@@ -4,21 +4,12 @@ const BOOKMARK_TOOLBAR_SELECTOR = "#PersonalToolbar";
 
 const buttons = require('sdk/ui/button/action');
 const utils = require('sdk/window/utils');
+const hotkeys = require("sdk/hotkeys");
 
+var button = createButton();
+var hotkey = createHotkey();
 
-var button = buttons.ActionButton({
-  id: "btn-show",
-  label: "Show/Hide Bookmarks Toolbar",
-  icon: {
-    "16": "./icon-16.png",
-    "32": "./icon-32.png",
-    "64": "./icon-64.png"
-  },
-  onClick: handleClick
-});
-
-function handleClick(state) {
-
+function handler(state) {
 	toggleBookmarkToolbars();
 }
 
@@ -53,4 +44,26 @@ function getBookmarkToolbars(windows) {
     });
     
 	return toolbars;
+}
+
+function createHotkey() {
+    
+    hotkeys.Hotkey({
+        combo: "control-alt-b",
+        onPress: handler
+    })
+}
+
+function createButton(){
+    
+    return buttons.ActionButton({
+      id: "btn-show",
+      label: "Show/Hide Bookmarks Toolbar",
+      icon: {
+        "16": "./icon-16.png",
+        "32": "./icon-32.png",
+        "64": "./icon-64.png"
+      },
+      onClick: handler
+    });
 }

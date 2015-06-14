@@ -1,7 +1,9 @@
 Bookmark Toolbar Toggler
 ========================
 
-A very simple Firefox extension to fill my need of a single click toggle for the bookmark toolbar, as at the moment it is quiet fiddly.
+A very simple Firefox extention to allow toggling of the bookmarks toolbar, as currently there is no key combination for it.
+
+This is achieved either by a button on the main toolbar or via key combinations "Ctrl-Alt-B"
 
 #### Building
 
