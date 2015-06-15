@@ -1,14 +1,14 @@
 Bookmark Toolbar Toggler
 ========================
 
-A simple Firefox addon to allow the user to toggle the visibility of the bookmarks toolbar. Designed to make the toolbar more useful for storing bookmarks/bookmarklets without taking up lots of screen space. It can be toggled by either a button on the main toolbar or via key combinations.
+A simple Firefox addon to allow the user to toggle the visibility of the bookmarks toolbar. 
 
-I built it as there is not currently any key combination short cut for toggling the bookmarks toolbar in Firefox. 
+Designed to make the toolbar more useful for storing bookmarks/bookmarklets without taking up lots of screen space. It can be toggled by either a button on the main toolbar or via key combinations. I built it as there is not currently any key combination short cut for toggling the bookmarks toolbar in Firefox.
 
 ### User Options
 
-- Enabling keyboard short cuts, by default: __true__
-- The key combination for the short cut if enabled, by default: __Ctrl + Alt + B__
+- Enabling/Disabling keyboard short cuts, by default: __true__
+- Key combination for the short cut if enabled, by default: __Ctrl + Alt + B__
 
 Both these options can be changed in the addon's option screen in Firefox
 
