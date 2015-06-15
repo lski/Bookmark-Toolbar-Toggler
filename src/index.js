@@ -4,13 +4,41 @@ const BOOKMARK_TOOLBAR_SELECTOR = "#PersonalToolbar";
 const HOTKEY_ENABLED_OPTION = 'hotkeyEnabled';
 const HOTKEY_OPTION = "hotkeys";
 
-const buttons = require('sdk/ui/button/action');
 const utils = require('sdk/window/utils');
-const hotkeys = require("sdk/hotkeys");
 const options = require('sdk/simple-prefs');
+const { Hotkey } = require('./hotkey.js');
+const { Button } = require('./button.js');
 
-var hotkey = initHotkey(),
-    button = initButton();
+let button = new Button(toggleHandler),
+    hotkey = new Hotkey(options.prefs[HOTKEY_ENABLED_OPTION], options.prefs[HOTKEY_OPTION], toggleHandler);
+
+options.on(HOTKEY_OPTION, hotkeyChangedHandler);
+options.on(HOTKEY_ENABLED_OPTION, hotkeyEnabledChangedHandler);
+
+function getWindows() {
+    return [utils.getMostRecentBrowserWindow()];
+}
+
+function getBookmarkToolbars(windows) {
+
+    let toolbars = windows.map((w) => {
+        return w.document.querySelector(BOOKMARK_TOOLBAR_SELECTOR);
+    });
+
+    return toolbars;
+}
+
+function toggleHandler(state) {
+    toggleBookmarkToolbars();
+}
+
+function hotkeyChangedHandler() {
+    hotkey.assign(options.prefs[HOTKEY_OPTION]);
+}
+
+function hotkeyEnabledChangedHandler() {
+    hotkey.changeState(options.prefs[HOTKEY_ENABLED_OPTION]);
+}
 
 function toggleBookmarkToolbars() {
 
@@ -30,68 +58,4 @@ function toggleBookmarkToolbars() {
 
         toolbar.ownerGlobal.setToolbarVisibility(toolbar, visible);
     }
-}
-
-function getWindows() {
-    return [utils.getMostRecentBrowserWindow()];
-}
-
-function getBookmarkToolbars(windows) {
-
-    let toolbars = windows.map((w) => {
-        return w.document.querySelector(BOOKMARK_TOOLBAR_SELECTOR);
-    });
-
-    return toolbars;
-}
-
-function enableHotkey() {
-
-    return hotkeys.Hotkey({
-            combo: options.prefs[HOTKEY_OPTION],
-            onPress: toggleHandler
-        });
-}
-
-function disableHotkey(hotkey) {
-
-    if (hotkey != null) {
-        // small workaround for a bug with the sandbox not being able to travel up the proto chain
-        hotkey.__proto__.destroy.call(hotkey);
-    }
-
-    return null;
-}
-
-function initButton() {
-
-    return buttons.ActionButton({
-        id: "btn-show",
-        label: "Show/Hide Bookmarks Toolbar",
-        icon: {
-            "16": "./icon-16.png",
-            "32": "./icon-32.png",
-            "64": "./icon-64.png"
-        },
-        onClick: toggleHandler
-    });
-}
-
-function initHotkey() {
-
-    // Handle both the option changes the same as both require new hotkey objects
-    options.on("", hotkeyOptionsChangedHandler);
-
-    if (options.prefs[HOTKEY_ENABLED_OPTION]) {
-        return enableHotkey();
-    }
-}
-
-function toggleHandler(state) {
-    toggleBookmarkToolbars();
-}
-
-function hotkeyOptionsChangedHandler() {
-    // look at the fact we are not destorying the old hot key
-    hotkey = options.prefs[HOTKEY_ENABLED_OPTION] ? enableHotkey() : disableHotkey(hotkey);
 }
