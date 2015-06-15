@@ -1,8 +1,8 @@
 {
     "title": "Bookmark Toolbar Toggler",
     "name": "bookmark-toolbar-toggler",
-    "version": "0.0.3",
-    "description": "Simply toggles the bookmark toolbar on either on a keyboard short cut or main toolbar button",
+    "version": "1.0.0",
+    "description": "Simply toggles the visibility of the bookmark toolbar on either on a keyboard short cut or main toolbar button",
     "main": "index.js",
     "author": "Lee <dev@lski.co.uk>",
     "engines": {
@@ -12,7 +12,7 @@
     "preferences": [
         {
             "name": "hotkeyEnabled",
-            "title": "Keyboard shortcut enabled",
+            "title": "Keyboard short cut enabled",
             "description": "States whether hot keys are enabled or disabled, used to possibly avoid conflict with other addons",
             "type": "bool",
             "value": true
@@ -21,6 +21,7 @@
             "name": "hotkeys",
             "type": "menulist",
             "title": "Keyboard Shortcut",
+			"description": "The keyboard short cut that, if enabled, will toggle the bookmarks toolbar visibility",
             "value": "control-alt-b",
             "options": [
                 { "value": "control-shift-a", "label": "CTRL + SHIFT + A" },
