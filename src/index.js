@@ -9,11 +9,35 @@ const options = require('sdk/simple-prefs');
 const { Hotkey } = require('./hotkey.js');
 const { Button } = require('./button.js');
 
-let button = new Button(toggleHandler),
-    hotkey = new Hotkey(options.prefs[HOTKEY_ENABLED_OPTION], options.prefs[HOTKEY_OPTION], toggleHandler);
+let button = null,
+    hotkey = null;
 
-options.on(HOTKEY_OPTION, hotkeyChangedHandler);
-options.on(HOTKEY_ENABLED_OPTION, hotkeyEnabledChangedHandler);
+exports.main = load;
+exports.onUnload = unload;
+
+function load(ops) {
+    
+    console.log('load', ops.loadReason);
+    
+    if(/install|enable/i.test(ops.loadReason)){
+        
+        button = new Button(toggleHandler);
+        hotkey = new Hotkey(options.prefs[HOTKEY_ENABLED_OPTION], options.prefs[HOTKEY_OPTION], toggleHandler);
+        
+        options.on(HOTKEY_OPTION, hotkeyChangedHandler);
+        options.on(HOTKEY_ENABLED_OPTION, hotkeyEnabledChangedHandler);
+    }
+}
+
+function unload(reason) {
+    
+    console.log('unload', reason);
+    
+    button = hotkey = null;
+
+    options.off(HOTKEY_OPTION, hotkeyChangedHandler);
+    options.off(HOTKEY_ENABLED_OPTION, hotkeyEnabledChangedHandler);
+}
 
 function getWindows() {
     return [utils.getMostRecentBrowserWindow()];

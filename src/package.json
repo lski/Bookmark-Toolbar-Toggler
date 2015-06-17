@@ -1,7 +1,7 @@
 {
     "title": "Bookmark Toolbar Toggler",
     "name": "bookmark-toolbar-toggler",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Simply toggles the visibility of the bookmark toolbar on either on a keyboard short cut or main toolbar button",
     "main": "index.js",
     "author": "Lee <dev@lski.co.uk>",
