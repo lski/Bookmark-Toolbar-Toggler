@@ -19,14 +19,11 @@ function load(ops) {
     
     console.log('load', ops.loadReason);
     
-    if(/install|enable/i.test(ops.loadReason)){
-        
-        button = new Button(toggleHandler);
-        hotkey = new Hotkey(options.prefs[HOTKEY_ENABLED_OPTION], options.prefs[HOTKEY_OPTION], toggleHandler);
-        
-        options.on(HOTKEY_OPTION, hotkeyChangedHandler);
-        options.on(HOTKEY_ENABLED_OPTION, hotkeyEnabledChangedHandler);
-    }
+    button = new Button(toggleHandler);
+    hotkey = new Hotkey(options.prefs[HOTKEY_ENABLED_OPTION], options.prefs[HOTKEY_OPTION], toggleHandler);
+
+    options.on(HOTKEY_OPTION, hotkeyChangedHandler);
+    options.on(HOTKEY_ENABLED_OPTION, hotkeyEnabledChangedHandler);
 }
 
 function unload(reason) {
